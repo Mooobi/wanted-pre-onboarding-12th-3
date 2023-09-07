@@ -2,10 +2,7 @@ import { styled } from 'styled-components';
 import { MdOutlineCancel } from 'react-icons/md';
 import useInput from '../hooks/useInput';
 export default function Input({ onFocus, onBlur }: { onFocus: () => void; onBlur: () => void }) {
-  const { inputValue, setInput } = useInput() as {
-    inputValue: string;
-    setInput: (value: string) => void;
-  };
+  const { inputValue, setInput } = useInput();
 
   return (
     <Wrapper>

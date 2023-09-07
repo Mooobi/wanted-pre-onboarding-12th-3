@@ -7,8 +7,9 @@ import { styled } from 'styled-components';
 export default function RecommendList() {
   const { inputValue } = useInput();
 
-  const { data, loading, error } = useFetch(inputValue);
-  console.log(data, loading, error);
+  const { data, loading } = useFetch(inputValue);
+
+  if (loading) return <Container>Loading...</Container>;
 
   if (!data) return NO_RECOMMENDED_SEARCH_TEXT;
 
@@ -17,7 +18,7 @@ export default function RecommendList() {
   return (
     <Container>
       {slicedData.map((item) => (
-        <Wrapper>
+        <Wrapper key={item.sickCd}>
           <AiOutlineSearch size='1.25rem' fill='#aaaaaa' className='icon' />
           <TextFiled>{item.sickNm}</TextFiled>
         </Wrapper>

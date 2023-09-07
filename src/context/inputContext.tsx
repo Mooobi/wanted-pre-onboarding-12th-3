@@ -7,7 +7,7 @@ export const InputContext = createContext<{
 
 export function InputProvider({ children }: { children: ReactNode }) {
   const [inputValue, setInputValue] = useState('');
-  console.log(inputValue);
+
   const setInput = (value: string) => {
     setInputValue(value);
   };
