@@ -1,33 +1,18 @@
 import { styled } from 'styled-components';
-import {
-  NO_RECENT_SEARCH_TEXT,
-  RECENT_SEARCH_TEXT,
-  RECOMMENDED_SEARCH_TEXT,
-} from '../constants/constants';
+import { RECOMMENDED_SEARCH_TEXT } from '../constants/constants';
 import RecommendList from './RecommendList';
 
 export default function AutoCompleteBox({ isFocused }: { isFocused: boolean }) {
-  const isCached = true;
-
-  const isTyping = true;
+  // const isCached = false;
 
   return (
     <Box $isFocused={isFocused}>
-      {isTyping ? (
-        <Wrapper>
-          {RECOMMENDED_SEARCH_TEXT}
-          <InnerWrapper>
-            <RecommendList />
-          </InnerWrapper>
-        </Wrapper>
-      ) : (
-        <Wrapper>
-          {RECENT_SEARCH_TEXT}
-          <InnerWrapper>
-            {isCached ? '최근검색어 어쩌구 저쩌구' : NO_RECENT_SEARCH_TEXT}
-          </InnerWrapper>
-        </Wrapper>
-      )}
+      <Wrapper>
+        {RECOMMENDED_SEARCH_TEXT}
+        <InnerWrapper>
+          <RecommendList />
+        </InnerWrapper>
+      </Wrapper>
     </Box>
   );
 }
@@ -36,7 +21,7 @@ const Box = styled.div.attrs<{ $isFocused: boolean }>(({ $isFocused }) => ({
   $isFocused: $isFocused,
 }))`
   position: absolute;
-  display: ${(props) => props.$isFocused && 'none'};
+  display: ${(props) => !props.$isFocused && 'none'};
   min-height: 15rem;
   width: 30rem;
   top: 25rem;
