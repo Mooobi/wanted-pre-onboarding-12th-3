@@ -20,44 +20,51 @@ export default function useFetch(query: string) {
     // const cache = new CacheManager(query);
 
     // if (cache.get)
-    const fetchData = async () => {
-      try {
-        if (query.length) {
-          const response = await fetch(`${BASE_URL}?q=${query}`);
+    const fetchTimeout = setTimeout(() => {
+      const fetchData = async () => {
+        try {
+          if (query.length) {
+            const response = await fetch(`${BASE_URL}?q=${query}`);
+            console.info('calling api');
+            if (!response.ok) {
+              throw new Error(`${response.status}`);
+            }
 
-          if (!response.ok) {
-            throw new Error(`${response.status}`);
+            const responseData = await response.json();
+
+            setDataState({
+              data: responseData,
+              loading: true,
+              error: null,
+            });
           }
-
-          const responseData = await response.json();
-          setDataState({
-            data: responseData,
-            loading: true,
-            error: null,
-          });
-        }
-        if (!query) {
+          if (!query) {
+            setDataState({
+              data: null,
+              loading: true,
+              error: null,
+            });
+          }
+        } catch (error) {
           setDataState({
             data: null,
-            loading: true,
-            error: null,
+            loading: false,
+            error: error,
           });
+        } finally {
+          setDataState((prevState) => ({
+            ...prevState,
+            loading: false,
+          }));
         }
-      } catch (error) {
-        setDataState({
-          data: null,
-          loading: false,
-          error: error,
-        });
-      } finally {
-        setDataState((prevState) => ({
-          ...prevState,
-          loading: false,
-        }));
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }, 300);
+
+    return () => {
+      clearTimeout(fetchTimeout);
+    };
   }, [query]);
 
   const { data, loading, error } = dataState;
