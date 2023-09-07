@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { TITLE_TEXT_1, TITLE_TEXT_2 } from '../constants/constants';
 import SearchBar from '../components/SearchBar';
+import { InputProvider } from '../context/inputContext';
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
         <br />
         {TITLE_TEXT_2}
       </Title>
-      <SearchBar />
+      <InputProvider>
+        <SearchBar />
+      </InputProvider>
     </Wrapper>
   );
 }

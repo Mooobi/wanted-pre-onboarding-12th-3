@@ -1,16 +1,25 @@
 import { styled } from 'styled-components';
 import { MdOutlineCancel } from 'react-icons/md';
-export default function Input({
-  onFocus,
-  onBlur,
-}: {
-  onFocus: () => void;
-  onBlur: () => void;
-  isFocused: boolean;
-}) {
+import useInput from '../hooks/useInput';
+export default function Input({ onFocus, onBlur }: { onFocus: () => void; onBlur: () => void }) {
+  const { inputValue, setInput } = useInput() as {
+    inputValue: string;
+    setInput: (value: string) => void;
+  };
+
   return (
     <Wrapper>
-      <S_Input onFocus={onFocus} onBlur={onBlur} type='text' autoFocus />
+      <S_Input
+        onFocus={onFocus}
+        onBlur={() => {
+          onBlur();
+          setInput('');
+        }}
+        type='text'
+        autoFocus
+        value={inputValue}
+        onChange={(e) => setInput(e.target.value)}
+      />
       <MdOutlineCancel size='1.75rem' fill='#aaaaaa' />
     </Wrapper>
   );

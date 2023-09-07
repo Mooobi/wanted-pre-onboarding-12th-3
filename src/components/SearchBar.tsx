@@ -20,7 +20,7 @@ export default function SearchBar() {
     <>
       <Wrapper $isFocused={isFocused}>
         {isFocused ? (
-          <Input onFocus={borderOn} onBlur={borderOff} isFocused={isFocused} />
+          <Input onFocus={borderOn} onBlur={borderOff} />
         ) : (
           <PlaceHolder onClick={borderOn} />
         )}
