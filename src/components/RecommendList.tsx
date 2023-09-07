@@ -11,7 +11,7 @@ export default function RecommendList() {
 
   if (loading) return <Container>Loading...</Container>;
 
-  if (!data) return NO_RECOMMENDED_SEARCH_TEXT;
+  if (!data || !data.length) return NO_RECOMMENDED_SEARCH_TEXT;
 
   const slicedData = data.slice(0, 20);
 

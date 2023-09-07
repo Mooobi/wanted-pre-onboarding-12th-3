@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Data } from '../type/Type';
 import { BASE_URL } from '../constants/constants';
-// import { CacheManager } from '../utils/cacheManager';
+import { CacheManager } from '../utils/cacheManager';
+import getCachedData from '../utils/getCacheData';
+import setCacheData from '../utils/setCacheData';
 
 interface DataState {
   data: Data[] | null;
@@ -17,13 +19,23 @@ export default function useFetch(query: string) {
   });
 
   useEffect(() => {
-    // const cache = new CacheManager(query);
+    const cacheManager = new CacheManager(query);
 
-    // if (cache.get)
     const fetchTimeout = setTimeout(() => {
       const fetchData = async () => {
         try {
           if (query.length) {
+            const cachedData = await getCachedData(cacheManager, query);
+
+            if (cachedData) {
+              setDataState({
+                data: cachedData,
+                loading: false,
+                error: null,
+              });
+              return;
+            }
+
             const response = await fetch(`${BASE_URL}?q=${query}`);
             console.info('calling api');
             if (!response.ok) {
@@ -31,6 +43,9 @@ export default function useFetch(query: string) {
             }
 
             const responseData = await response.json();
+            console.log(responseData);
+
+            setCacheData(cacheManager, query, responseData);
 
             setDataState({
               data: responseData,
