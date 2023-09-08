@@ -1,8 +1,22 @@
 import { styled } from 'styled-components';
 import { MdOutlineCancel } from 'react-icons/md';
 import useInput from '../hooks/useInput';
-export default function Input({ onFocus, onBlur }: { onFocus: () => void; onBlur: () => void }) {
+export default function Input({
+  onFocus,
+  onBlur,
+  onArrowKeyPress,
+}: {
+  onFocus: () => void;
+  onBlur: () => void;
+  onArrowKeyPress: (e: React.KeyboardEvent<HTMLElement>) => void;
+}) {
   const { inputValue, setInput } = useInput();
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      onArrowKeyPress(e);
+    }
+  };
 
   return (
     <Wrapper>
@@ -16,6 +30,7 @@ export default function Input({ onFocus, onBlur }: { onFocus: () => void; onBlur
         autoFocus
         value={inputValue}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <MdOutlineCancel size='1.75rem' fill='#aaaaaa' />
     </Wrapper>
