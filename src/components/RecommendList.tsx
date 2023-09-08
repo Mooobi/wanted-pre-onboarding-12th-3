@@ -4,7 +4,7 @@ import useFetch from '../hooks/useFetch';
 import useInput from '../hooks/useInput';
 import { styled } from 'styled-components';
 
-export default function RecommendList() {
+export default function RecommendList({ currentIndex }: { currentIndex: number }) {
   const { inputValue } = useInput();
 
   const { data, loading } = useFetch(inputValue);
@@ -17,10 +17,11 @@ export default function RecommendList() {
 
   return (
     <Container>
-      {slicedData.map((item) => (
-        <Wrapper key={item.sickCd}>
+      {slicedData.map((item, index) => (
+        <Wrapper key={item.sickCd} $isFocus={index === currentIndex}>
           <AiOutlineSearch size='1.25rem' fill='#aaaaaa' className='icon' />
           <TextFiled>{item.sickNm}</TextFiled>
+          {index}
         </Wrapper>
       ))}
     </Container>
@@ -37,14 +38,14 @@ const Container = styled.div`
   }
 `;
 
-const Wrapper = styled.li`
+const Wrapper = styled.li<{ $isFocus: boolean }>`
   cursor: pointer;
   display: flex;
   justify-content: start;
   align-items: center;
   color: #aaaaaa;
   line-height: 2;
-
+  background: ${(props) => (props.$isFocus ? '#eeeeee' : 'inherit')};
   .icon {
     min-width: 1.25rem;
     margin-right: 0.5rem;

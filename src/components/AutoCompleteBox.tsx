@@ -2,7 +2,13 @@ import { styled } from 'styled-components';
 import { RECOMMENDED_SEARCH_TEXT } from '../constants/constants';
 import RecommendList from './RecommendList';
 
-export default function AutoCompleteBox({ isFocused }: { isFocused: boolean }) {
+export default function AutoCompleteBox({
+  isFocused,
+  currentIndex,
+}: {
+  isFocused: boolean;
+  currentIndex: number;
+}) {
   // const isCached = false;
 
   return (
@@ -10,7 +16,7 @@ export default function AutoCompleteBox({ isFocused }: { isFocused: boolean }) {
       <Wrapper>
         {RECOMMENDED_SEARCH_TEXT}
         <InnerWrapper>
-          <RecommendList />
+          <RecommendList currentIndex={currentIndex} />
         </InnerWrapper>
       </Wrapper>
     </Box>

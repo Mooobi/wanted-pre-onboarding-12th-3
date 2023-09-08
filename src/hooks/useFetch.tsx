@@ -8,14 +8,12 @@ import setCacheData from '../utils/setCacheData';
 interface DataState {
   data: Data[] | null;
   loading: boolean;
-  error: unknown | null;
 }
 
 export default function useFetch(query: string) {
   const [dataState, setDataState] = useState<DataState>({
     data: null,
     loading: true,
-    error: null,
   });
 
   useEffect(() => {
@@ -31,7 +29,6 @@ export default function useFetch(query: string) {
               setDataState({
                 data: cachedData,
                 loading: false,
-                error: null,
               });
               return;
             }
@@ -43,28 +40,24 @@ export default function useFetch(query: string) {
             }
 
             const responseData = await response.json();
-            console.log(responseData);
 
             setCacheData(cacheManager, query, responseData);
 
             setDataState({
               data: responseData,
               loading: true,
-              error: null,
             });
           }
           if (!query) {
             setDataState({
               data: null,
               loading: true,
-              error: null,
             });
           }
         } catch (error) {
           setDataState({
             data: null,
             loading: false,
-            error: error,
           });
         } finally {
           setDataState((prevState) => ({
@@ -82,7 +75,7 @@ export default function useFetch(query: string) {
     };
   }, [query]);
 
-  const { data, loading, error } = dataState;
+  const { data, loading } = dataState;
 
-  return { data, loading, error };
+  return { data, loading };
 }
