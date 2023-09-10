@@ -28,7 +28,7 @@ root
 로컬 환경의 터미널에서 clone 후 npm install, npm run dev 순으로 입력하여 로컬환경에서 실행할 수 있습니다.
 
 ```
-git clone https://github.com/Mooobi/react-issues-reader.git
+git clone https://github.com/Mooobi/wanted-pre-onboarding-12th-3.git
 npm install
 npm run dev
 ```
