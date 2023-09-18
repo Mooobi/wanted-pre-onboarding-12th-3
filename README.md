@@ -35,6 +35,11 @@ npm install
 npm run dev
 ```
 
+서버가 구축되어있지 않기 때문에 아래 링크로 접속한 후 안내에 따라 서버를 활성화하여야 검색 데이터가 나타납니다.
+(배포환경에서도 동일)
+
+[api repository](https://github.com/walking-sunset/assignment-api)
+
 ## 사용 스택
 
 <img src='https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white' alt='html5' />
