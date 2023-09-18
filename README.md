@@ -7,7 +7,7 @@
 
 [배포링크](https://wanted-pre-onboarding-12th-3.vercel.app/)
 
-서버가 구축되어있지 않기 때문에 아래 링크로 접속한 후 안내에 따라 서버를 활성화하여야 검색 데이터가 나타납니다.
+서버가 구축되어있지 않기 때문에 아래 링크로 접속한 후 안내에 따라 로컬서버를 활성화하여야 검색 데이터가 나타납니다.
 (로컬환경에서도 동일)
 
 [api repository](https://github.com/walking-sunset/assignment-api)
